@@ -1,0 +1,8 @@
+[servers]
+server1
+server2
+
+[all:vars]
+ansible_connection=ssh
+ansible_become=true
+ansible_become_method=sudo
