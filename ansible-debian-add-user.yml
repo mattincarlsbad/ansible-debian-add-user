@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: False
+  
+  vars:
+    # created with:
+    # python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
+    password : password-hash-goes-here
+    user : username
+
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+   
+  - name: Create User and Set PW
+    user: name={{ user }}
+       shell=/bin/bash
+       update_password=always
+       password={{ password }}
+       groups=sudo
+       append=yes
